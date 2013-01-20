@@ -39,6 +39,11 @@ module OmniAuth
         url
       end
       alias_method_chain :full_host, :origin
+
+      # patch to disable return_url to avoid polluting the service URL
+      def return_url
+        {}
+      end
     end
   end
 end
