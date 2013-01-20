@@ -9,14 +9,14 @@ Rails.application.config.to_prepare do
   require_dependency 'redmine_omniauth_cas/account_controller_patch'
 end
 
-# Plugin generic informations
+# Plugin generic information
 Redmine::Plugin.register :redmine_omniauth_cas do
-  name 'Redmine Omniauth plugin'
-  description 'This plugin adds Omniauth support to Redmine'
+  name 'Redmine OmniAuth CAS plugin'
+  description 'This plugin adds OmniAuth CAS support to Redmine'
   author 'Jean-Baptiste BARTH'
   author_url 'mailto:jeanbaptiste.barth@gmail.com'
   url 'https://github.com/jbbarth/redmine_omniauth_cas'
-  version '0.1.1'
+  version '0.2.0'
   requires_redmine :version_or_higher => '2.0.0'
   settings :default => {
       'enabled' => 'true',
