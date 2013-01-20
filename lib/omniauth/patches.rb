@@ -25,6 +25,20 @@ module OmniAuth
         end
       end
       alias_method_chain :service_validate_url, :different_host
+
+      # patch to use omniauth.origin for the full_host (if available), to deal with reverse proxy issues
+      def full_host_with_origin
+        url = env["rack.session"]["omniauth.origin"] || env["omniauth.origin"]
+        if url.blank?
+          url = full_host_without_origin
+        else
+          uri = URI.parse(url)
+          url = "#{uri.scheme}://#{uri.host}"
+          url << ":#{uri.port}" unless uri.default_port == uri.port
+        end
+        url
+      end
+      alias_method_chain :full_host, :origin
     end
   end
 end

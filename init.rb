@@ -2,7 +2,6 @@ require 'redmine'
 require 'redmine_omniauth_cas'
 require 'redmine_omniauth_cas/hooks'
 require 'omniauth/patches'
-require 'omniauth/dynamic_full_host'
 
 # Patches to existing classes/modules
 ActionDispatch::Callbacks.to_prepare do
