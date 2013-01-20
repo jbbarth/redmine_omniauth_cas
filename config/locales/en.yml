@@ -5,6 +5,8 @@ en:
   label_cas_server: CAS server URL
   label_cas_service_validate_url: CAS validation URL (if different)
   label_replace_redmine_login: Replace Redmine login page
+  label_onthefly_registration_enabled: Enable on-the-fly user creation
+  label_onthefly_authsource: Associate user with authentication source
   text_full_logout_proposal: You may want to %{value} before trying an other username.
   text_logout_from_cas: logout from CAS
   error_cas_no_ticket: No CAS ticket was found during callback.

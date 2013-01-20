@@ -18,8 +18,16 @@ Redmine::Plugin.register :redmine_omniauth_cas do
   url 'https://github.com/jbbarth/redmine_omniauth_cas'
   version '0.1.1'
   requires_redmine :version_or_higher => '2.0.0'
-  settings :default => { 'enabled' => 'true', 'label_login_with_cas' => '', 'cas_server' => '' },
-           :partial => 'settings/omniauth_cas_settings'
+  settings :default => {
+      'enabled' => 'true',
+      'cas_server' => '',
+      'label_login_with_cas' => '',
+      'onthefly_registration' => 'true',
+      'onthefly_authsource_id' => '',
+      'attr_firstname' => 'first_name',
+      'attr_lastname' => 'last_name',
+      'attr_mail' => 'email',
+    }, :partial => 'settings/omniauth_cas_settings'
 end
 
 # OmniAuth CAS

@@ -8,6 +8,7 @@ module Redmine::OmniAuthCAS
         unloadable
         alias_method_chain :login, :cas
         alias_method_chain :logout, :cas
+        alias_method_chain :register, :cas
       end
     end
 
@@ -27,12 +28,9 @@ module Redmine::OmniAuthCAS
 
       def login_with_cas_callback
         auth = request.env["omniauth.auth"]
-        #user = User.find_by_provider_and_uid(auth["provider"], auth["uid"])
-        user = User.find_by_login(auth["uid"]) || User.find_by_mail(auth["uid"])
-
-        # taken from original AccountController
-        # maybe it should be splitted in core
-        if user.blank?
+        user = find_or_create_user_from_cas(auth)
+        if user.nil?
+          # Unknown user and on-the-fly creation is disabled
           logger.warn "Failed login for '#{auth[:uid]}' from #{request.remote_ip} at #{Time.now.utc}"
           error = l(:notice_account_invalid_creditentials).sub(/\.$/, '')
           if cas_settings[:cas_server].present?
@@ -46,11 +44,14 @@ module Redmine::OmniAuthCAS
             flash[:error] = error
             redirect_to signin_url
           end
+        elsif user.new_record?
+          # On-the-fly creation is enabled but could not extract all values from attributes
+          session[:auth_source_registration] = {:login => user.login, :auth_source_id => user.auth_source_id, :user => user, :from_cas => true}
+          redirect_to register_url
         else
-          user.update_attribute(:last_login_on, Time.now)
+          # Valid user
           params[:back_url] = request.env["omniauth.origin"] unless request.env["omniauth.origin"].blank?
           successful_authentication(user)
-          #cannot be set earlier, because sucessful_authentication() triggers reset_session()
           session[:logged_in_with_cas] = true
         end
       end
@@ -76,6 +77,26 @@ module Redmine::OmniAuthCAS
         end
       end
 
+      def register_with_cas
+        from_cas = session[:auth_source_registration][:from_cas] if session[:auth_source_registration]
+        if request.get? && from_cas && session[:auth_source_registration][:user]
+          # First redirection to registration page after successful CAS authentication
+          @user = session[:auth_source_registration][:user]
+        else
+          # Normal form handling process
+          register_without_cas
+        end
+        if from_cas
+          if !performed?
+            # Setup specific registration view (without login/password fields)
+            render :register_with_cas
+          elsif User.current.logged?
+            # Successful self-registration, mark the user as logged in from CAS for proper logout
+            session[:logged_in_with_cas] = true
+          end
+        end
+      end
+
       private
       def cas_settings
         Redmine::OmniAuthCAS.settings_hash
@@ -87,6 +108,39 @@ module Redmine::OmniAuthCAS
           logout_uri.query = "service=#{service}"
         end
         logout_uri.to_s
+      end
+
+      def find_or_create_user_from_cas(auth)
+        user = User.find_by_login(auth["uid"]) || User.find_by_mail(auth["uid"])
+        if user
+          # User is already in local database
+          return nil if !user.active?
+        elsif cas_settings[:onthefly_registration]
+          # Create user on-the-fly
+          user = User.new(get_user_attrs_from_cas(auth))
+          user.login = auth["uid"]
+          user.auth_source_id = cas_settings[:onthefly_authsource_id].to_i if !cas_settings[:onthefly_authsource_id].blank?
+          user.random_password
+          if user.save
+            user.reload
+            Rails.logger.info("User '#{user.login}' created from CAS")
+          end
+        end
+        user.update_attribute(:last_login_on, Time.now) if user && !user.new_record?
+        user
+      end
+
+      def get_user_attrs_from_cas(auth)
+        cas_attrs = auth["extra"]["attributes"][0] if auth["extra"] && auth["extra"]["attributes"]
+        cas_attrs ||= auth["extra"]
+        all_attrs = auth["info"].merge(cas_attrs)
+        user_attrs = {
+          :firstname => all_attrs[cas_settings[:attr_firstname]],
+          :lastname => all_attrs[cas_settings[:attr_lastname]],
+          :mail => all_attrs[cas_settings[:attr_mail]],
+          :language => Setting.default_language
+        }
+        user_attrs
       end
 
     end

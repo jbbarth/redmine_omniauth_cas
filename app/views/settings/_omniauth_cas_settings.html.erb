@@ -1,5 +1,6 @@
 <% flash.now[:error] = "#{l("label_cas_server")} #{l("activerecord.errors.messages.blank")}" if @settings['cas_server'].blank? %>
 
+<fieldset class="box">
 <p>
   <label><%= l(:label_cas_enabled) %></label>
   <%= check_box_tag 'settings[enabled]', true, @settings['enabled'] %>
@@ -24,3 +25,30 @@
   <label><%= l(:label_replace_redmine_login) %></label>
   <%= check_box_tag 'settings[replace_redmine_login]', true, @settings['replace_redmine_login'] %>
 </p>
+</fieldset>
+
+<fieldset class="box">
+<legend><%= l(:field_onthefly) %></legend>
+<p>
+  <label><%= l(:label_onthefly_registration_enabled) %></label>
+  <%= check_box_tag 'settings[onthefly_registration]', true, @settings['onthefly_registration'] %>
+</p>
+<p>
+  <label><%= l(:label_onthefly_authsource) %></label>
+  <%= select_tag 'settings[onthefly_authsource_id]', options_from_collection_for_select(AuthSourceLdap.all, 'id', 'name', @settings['onthefly_authsource_id']), :include_blank => true %>
+</p>
+<p>
+  <label><%= l(:field_attr_firstname) %></label>
+  <%= text_field_tag 'settings[attr_firstname]', @settings['attr_firstname'], :size => 20 %>
+</p>
+<p>
+  <label><%= l(:field_attr_lastname) %></label>
+  <%= text_field_tag 'settings[attr_lastname]', @settings['attr_lastname'], :size => 20 %>
+</p>
+<p>
+  <label><%= l(:field_attr_mail) %></label>
+  <%= text_field_tag 'settings[attr_mail]', @settings['attr_mail'], :size => 20 %>
+</p>
+</fieldset>
+
+<%= javascript_tag "$('#settings div.tabular').removeClass('box').addClass('settings');" %>

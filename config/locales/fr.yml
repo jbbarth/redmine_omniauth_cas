@@ -5,6 +5,8 @@ fr:
   label_cas_server: Adresse du serveur CAS
   label_cas_service_validate_url: Adresse de validation CAS (si différente)
   label_replace_redmine_login: Remplacer la page de login de Redmine
+  label_onthefly_registration_enabled: Activer la création des utilisateurs à la volée
+  label_onthefly_authsource: Associer à une source d'authentification
   text_full_logout_proposal: Peut-être voulez-vous vous %{value} avant d'essayer un autre nom d'utilisateur ?
   text_logout_from_cas: déconnecter de CAS
   error_cas_no_ticket: Aucun ticket CAS n'a été trouvé lors du retour d'authentification.
