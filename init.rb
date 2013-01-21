@@ -2,25 +2,32 @@ require 'redmine'
 require 'redmine_omniauth_cas'
 require 'redmine_omniauth_cas/hooks'
 require 'omniauth/patches'
-require 'omniauth/dynamic_full_host'
 
 # Patches to existing classes/modules
-ActionDispatch::Callbacks.to_prepare do
+Rails.application.config.to_prepare do
   require_dependency 'redmine_omniauth_cas/account_helper_patch'
   require_dependency 'redmine_omniauth_cas/account_controller_patch'
 end
 
-# Plugin generic informations
+# Plugin generic information
 Redmine::Plugin.register :redmine_omniauth_cas do
-  name 'Redmine Omniauth plugin'
-  description 'This plugin adds Omniauth support to Redmine'
+  name 'Redmine OmniAuth CAS plugin'
+  description 'This plugin adds OmniAuth CAS support to Redmine'
   author 'Jean-Baptiste BARTH'
   author_url 'mailto:jeanbaptiste.barth@gmail.com'
   url 'https://github.com/jbbarth/redmine_omniauth_cas'
-  version '0.1.1'
+  version '0.2.0'
   requires_redmine :version_or_higher => '2.0.0'
-  settings :default => { 'label_login_with_cas' => '', 'cas_server' => '' },
-           :partial => 'settings/omniauth_cas_settings'
+  settings :default => {
+      'enabled' => 'true',
+      'cas_server' => '',
+      'label_login_with_cas' => '',
+      'onthefly_registration' => 'true',
+      'onthefly_authsource_id' => '',
+      'attr_firstname' => 'first_name',
+      'attr_lastname' => 'last_name',
+      'attr_mail' => 'email',
+    }, :partial => 'settings/omniauth_cas_settings'
 end
 
 # OmniAuth CAS

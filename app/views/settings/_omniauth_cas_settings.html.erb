@@ -1,22 +1,54 @@
-<% flash.now[:error] = "CAS URL #{l("activerecord.errors.messages.blank")}" if @settings['cas_server'].blank? %>
-<fieldset>
-<legend>OmniAuth CAS Plugin</legend>
+<% flash.now[:error] = "#{l("label_cas_server")} #{l("activerecord.errors.messages.blank")}" if @settings['cas_server'].blank? %>
+
+<fieldset class="box">
 <p>
-  <label><%= l(:label_cas_server) %><span class="required"> *</span> :</label>
-  <%= text_field_tag 'settings[cas_server]', @settings['cas_server'] %>
-  <br />
-  <em><%= l(:label_example) %>: http://cas.example.com</em>
+  <label><%= l(:label_cas_enabled) %></label>
+  <%= check_box_tag 'settings[enabled]', true, @settings['enabled'] %>
 </p>
 <p>
-  <label><%= l(:label_cas_service_validate_url) %> :</label>
-  <%= text_field_tag 'settings[cas_service_validate_url]', @settings['cas_service_validate_url'] %>
+  <label><%= l(:label_cas_server) %><span class="required"> *</span></label>
+  <%= text_field_tag 'settings[cas_server]', @settings['cas_server'], :size => 50 %>
   <br />
-  <em><%= l(:label_example) %>: http://cas.example.net/serviceValidate</em>
+  <em><%= l(:label_example) %>: https://cas.example.com</em>
 </p>
 <p>
-  <label><%= l(:label_login_page_text) %> :</label>
-  <%= text_field_tag 'settings[label_login_with_cas]', @settings['label_login_with_cas'] %>
+  <label><%= l(:label_cas_service_validate_url) %></label>
+  <%= text_field_tag 'settings[cas_service_validate_url]', @settings['cas_service_validate_url'], :size => 50 %>
+  <br />
+  <em><%= l(:label_example) %>: https://cas.example.net/serviceValidate</em>
+</p>
+<p>
+  <label><%= l(:label_login_page_text) %></label>
+  <%= text_field_tag 'settings[label_login_with_cas]', @settings['label_login_with_cas'], :size => 50 %>
+</p>
+<p>
+  <label><%= l(:label_replace_redmine_login) %></label>
+  <%= check_box_tag 'settings[replace_redmine_login]', true, @settings['replace_redmine_login'] %>
 </p>
 </fieldset>
 
+<fieldset class="box">
+<legend><%= l(:field_onthefly) %></legend>
+<p>
+  <label><%= l(:label_onthefly_registration_enabled) %></label>
+  <%= check_box_tag 'settings[onthefly_registration]', true, @settings['onthefly_registration'] %>
+</p>
+<p>
+  <label><%= l(:label_onthefly_authsource) %></label>
+  <%= select_tag 'settings[onthefly_authsource_id]', options_from_collection_for_select(AuthSourceLdap.all, 'id', 'name', @settings['onthefly_authsource_id']), :include_blank => true %>
+</p>
+<p>
+  <label><%= l(:field_attr_firstname) %></label>
+  <%= text_field_tag 'settings[attr_firstname]', @settings['attr_firstname'], :size => 20 %>
+</p>
+<p>
+  <label><%= l(:field_attr_lastname) %></label>
+  <%= text_field_tag 'settings[attr_lastname]', @settings['attr_lastname'], :size => 20 %>
+</p>
+<p>
+  <label><%= l(:field_attr_mail) %></label>
+  <%= text_field_tag 'settings[attr_mail]', @settings['attr_mail'], :size => 20 %>
+</p>
+</fieldset>
 
+<%= javascript_tag "$('#settings div.tabular').removeClass('box').addClass('settings');" %>
