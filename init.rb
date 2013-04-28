@@ -4,7 +4,7 @@ require 'redmine_omniauth_cas/hooks'
 require 'omniauth/patches'
 
 # Patches to existing classes/modules
-Rails.application.config.to_prepare do
+ActionDispatch::Callbacks.to_prepare do
   require_dependency 'redmine_omniauth_cas/account_helper_patch'
   require_dependency 'redmine_omniauth_cas/account_controller_patch'
 end
