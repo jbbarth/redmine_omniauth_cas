@@ -9,6 +9,6 @@ fr:
   label_onthefly_authsource: Associer à une source d'authentification
   text_full_logout_proposal: Peut-être voulez-vous vous %{value} avant d'essayer un autre nom d'utilisateur ?
   text_logout_from_cas: déconnecter de CAS
-  error_cas_no_ticket: Aucun ticket CAS n'a été trouvé lors du retour d'authentification.
+  error_cas_no_ticket: Aucun ticket CAS trouvé. Vous devriez re-tenter une authentification
   error_cas_invalid_ticket: Un ticket CAS invalide a été spécifié, il a peut-être expiré. Veuillez réessayer de vous authentifier.
   error_cas_unknown: Une erreur inconnue s'est produite lors du retour d'authentification CAS.
