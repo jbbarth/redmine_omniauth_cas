@@ -1,12 +1,12 @@
-h1. Redmine OmniAuth CAS plugin
+# Redmine OmniAuth CAS plugin
 
-This plugins adds CAS authentication support for "Redmine":http://www.redmine.org thanks to the "OmniAuth authentication framework":https://github.com/intridea/omniauth. OmniAuth is a Rack middleware that let you authenticate against many sources (see "the list of supported sources":https://github.com/intridea/omniauth/blob/master/README.md). This plugin aims at being an example of integration for the CAS protocol, but it shouldn't be that difficult to build a plugin that allows authentication against other sources.
+This plugins adds CAS authentication support for [Redmine](http://www.redmine.org) thanks to the [OmniAuth authentication framework](https://github.com/intridea/omniauth). OmniAuth is a Rack middleware that let you authenticate against many sources (see [the list of supported sources](https://github.com/intridea/omniauth/blob/master/README.md)). This plugin aims at being an example of integration for the CAS protocol, but it shouldn't be that difficult to build a plugin that allows authentication against other sources.
 
 *NB*: the plugin doesn't support on-the-fly registration for now.
 
-h2. Install
+## Install
 
-You can first take a look at general instructions for plugins "here":http://www.redmine.org/wiki/redmine/Plugins.
+You can first take a look at general instructions for plugins [here](http://www.redmine.org/wiki/redmine/Plugins)
 
 Note that the plugin is now *only compatible with Redmine 2.0.0 or higher*. Compatibility with Redmine 1.x has been removed in August, 2012.
 
@@ -18,7 +18,7 @@ Then :
 
 Finally you can configure your CAS server URL directly in your redmine instance, in "Administration" > "Plugins" > "Configure" on the OmniAuth CAS plugin line.
 
-h2. Coming soon features
+## Coming soon features
 
 Here are some ideas that could be implemented in future releases. I'm really open to suggestions on this plugin, so don't hesitate to fill an issue directly on GitHub :
 * implement ticket validation when first opening your browser (for now you’ll be considered as logged out if your session has expired on Redmine but your ticket is still valid on the CAS server)
@@ -26,9 +26,9 @@ Here are some ideas that could be implemented in future releases. I'm really ope
 * authorize on-the-fly registration
 * authorize non-conventional CAS URLs (for now you can just specify the base CAS url, and login, logout, validate, etc. URLs are deduced)
 
-h2. Internals
+## Internals
 
-h3. Why not use the AuthSource Redmine system ?
+### Why not use the AuthSource Redmine system ?
 
 From a functionality point of view, Redmine's AuthSource system is useful for 2 things :
 * you want to be able to define multiple occurrences of the same authentication source => not possible afaik with OmniAuth CAS strategy
@@ -36,20 +36,20 @@ From a functionality point of view, Redmine's AuthSource system is useful for 2 
 
 Actually, OpenID authentication in core is not an AuthSource neither.
 
-h3. Why is there a default on http://localhost:9292/ everywhere ?
+### Why is there a default on http://localhost:9292/ everywhere ?
 
 There are some limitations with the current implementation of OmniAuth CAS strategy. To be clear, it doesn't support dynamic parameters very well, and forces to have a default :cas_server or :cas_login_url defined in the initialization process. I hope I'll have the time to propose a fix or develop my own CAS strategy soon.
 
-h2. Contribute
+## Contribute
 
 If you like this plugin, it's a good idea to contribute :
 * by giving feed back on what is cool, what should be improved
 * by reporting bugs : you can open issues directly on github for the moment
 * by forking it and sending pull request if you have a patch or a feature you want to implement
 
-h2. Changelog
+## Changelog
 
-h3. master/current
+### master/current
 
 * Fix: avoid potential errors when "service_validate" option is not set in plugin configuration, leading to 500 error after CAS redirect
 * Fix: correctly update User#last_login_on when authenticating through CAS
@@ -58,17 +58,17 @@ h3. master/current
 * Feature: upgrade to OmniAuth 1.x and Redmine 2.x
 * Feature: clean log out from CAS for users logged in through CAS
 
-h3. v0.1.2
+### v0.1.2
 
 * Feature: allow having a different host for ticket validation (think: internet redirect for user's login, but ticket validation done through internal URL)
 
-h3. v0.1.1
+### v0.1.1
 
 * Fix: avoid potential 500 error with some CAS servers when using the (bad) default :cas_server option
 * Fix: do not show CAS button on login page if CAS URL is not set
 * Fix: bad default :cas_server URL, lead to malformed '/login' URL not supported by rubycas-server
 
-h3. v0.1.0 (first release)
+### v0.1.0 (first release)
 
 * Feature: upgrade to Redmine >= 1.2.0, since the latest versions of OmniAuth do not support Rack 1.0.1
 * Feature: provide a link to logout from CAS completely if username doesn't exist in redmine
