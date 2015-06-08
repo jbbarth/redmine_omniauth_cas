@@ -29,14 +29,14 @@ describe "AccountPatch" do
       it "should authorize login if user exists with this login" do
         OmniAuth.config.mock_auth[:cas] = { 'uid' => 'admin' }
         get '/auth/cas/callback'
-        response.should redirect_to('/my/page')
+        expect(response).to redirect_to('/my/page')
         User.current.login.should == "admin"
       end
 
       it "should authorize login if user exists with this email" do
         OmniAuth.config.mock_auth[:cas] = { 'uid' => 'admin@somenet.foo' }
         get '/auth/cas/callback'
-        response.should redirect_to('/my/page')
+        expect(response).to redirect_to('/my/page')
         User.current.login.should == "admin"
       end
 
@@ -45,14 +45,14 @@ describe "AccountPatch" do
         user.update_attribute(:last_login_on, Time.now - 6.hours)
         OmniAuth.config.mock_auth[:cas] = { 'uid' => 'admin' }
         get '/auth/cas/callback'
-        response.should redirect_to('/my/page')
+        expect(response).to redirect_to('/my/page')
         assert Time.now - User.current.last_login_on < 30.seconds
       end
 
       it "should refuse login if user doesn't exist" do
         OmniAuth.config.mock_auth[:cas] = { 'uid' => 'johndoe' }
         get '/auth/cas/callback'
-        response.should redirect_to('/login')
+        expect(response).to redirect_to('/login')
         follow_redirect!
         User.current.should == User.anonymous
         assert_select 'div.flash.error', /Invalid user or password/
