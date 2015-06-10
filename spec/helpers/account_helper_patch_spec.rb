@@ -8,12 +8,12 @@ describe AccountHelper do
     it "should use label_login_with_cas plugin setting if not blank" do
       label = "Log in with SSO"
       Setting["plugin_redmine_omniauth_cas"]["label_login_with_cas"] = label
-      label_for_cas_login.should == label
+      expect(label_for_cas_login).to eq label
     end
 
     it "should default to localized :label_login_with_cas if no setting present" do
       Setting["plugin_redmine_omniauth_cas"]["label_login_with_cas"] = nil
-      label_for_cas_login.should == l(:label_login_with_cas)
+      expect(label_for_cas_login).to eq l(:label_login_with_cas)
     end
   end
 end

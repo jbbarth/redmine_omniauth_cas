@@ -1,7 +1,7 @@
 require "spec_helper"
 
-describe "AccountPatch" do
-  fixtures :users, :roles
+describe "AccountPatch", :type => :request do
+  fixtures :users, :roles, :email_addresses
 
   context "GET /auth/:provider" do
     it "should route to a blank action (intercepted by omniauth middleware)" do
@@ -30,14 +30,14 @@ describe "AccountPatch" do
         OmniAuth.config.mock_auth[:cas] = { 'uid' => 'admin' }
         get '/auth/cas/callback'
         expect(response).to redirect_to('/my/page')
-        User.current.login.should == "admin"
+        expect(User.current.login).to eq "admin"
       end
 
       it "should authorize login if user exists with this email" do
         OmniAuth.config.mock_auth[:cas] = { 'uid' => 'admin@somenet.foo' }
         get '/auth/cas/callback'
         expect(response).to redirect_to('/my/page')
-        User.current.login.should == "admin"
+        expect(User.current.login).to eq "admin"
       end
 
       it "should update last_login_on field" do
@@ -54,7 +54,7 @@ describe "AccountPatch" do
         get '/auth/cas/callback'
         expect(response).to redirect_to('/login')
         follow_redirect!
-        User.current.should == User.anonymous
+        expect(User.current).to eq User.anonymous
         assert_select 'div.flash.error', /Invalid user or password/
       end
     end
