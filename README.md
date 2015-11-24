@@ -76,3 +76,7 @@ If you like this plugin, it's a good idea to contribute :
 * Feature: provide a way to override standard text on login page
 * Feature: configure OmniAuth 'full_host' in case the application runs behing a reverse-proxy
 * Feature: basic CAS login
+
+## License
+
+This project is released under the MIT license, see LICENSE file.
