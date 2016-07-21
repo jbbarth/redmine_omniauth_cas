@@ -39,7 +39,7 @@ module Redmine::OmniAuthCAS
         # maybe it should be splitted in core
         if user.blank?
           logger.warn "Failed login for '#{auth[:uid]}' from #{request.remote_ip} at #{Time.now.utc}"
-          error = l(:notice_account_invalid_creditentials).sub(/\.$/, '')
+          error = l(:notice_account_invalid_credentials).sub(/\.$/, '')
           if cas_settings["cas_server"].present?
             link = self.class.helpers.link_to(l(:text_logout_from_cas), cas_logout_url, :target => "_blank")
             error << ". #{l(:text_full_logout_proposal, :value => link)}"

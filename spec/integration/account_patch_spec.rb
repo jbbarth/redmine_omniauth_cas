@@ -55,7 +55,7 @@ describe "AccountPatch", :type => :request do
         expect(response).to redirect_to('/login')
         follow_redirect!
         expect(User.current).to eq User.anonymous
-        assert_select 'div.flash.error', /Invalid user or password/
+        assert_select 'div.flash.error', :text => /Invalid user or password/
       end
     end
   end
