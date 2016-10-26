@@ -1,0 +1,12 @@
+pt-BR:
+  label_login_with_cas: Login com CAS
+  label_login_page_text: Texto na página de login
+  label_cas_enabled: Habiltar autenticação com CAS
+  label_cas_server: URL do servidor CAS
+  label_cas_service_validate_url: URL de validação do CAS (se diferente)
+  label_replace_redmine_login: Substituir página de login do Redmine
+  text_full_logout_proposal: Você precisa acessar %{value} antes de tentar logar com outro usuário.
+  text_logout_from_cas: logout do CAS
+  error_cas_no_ticket: Ticket do CAS não recebido no callback. Tente autenticar novamente.
+  error_cas_invalid_ticket: Ticket inválido retornado, ele pode estar expirado. Tente logar novamente.
+  error_cas_unknown: Erro desconhecido ao processar o callback do CAS.
