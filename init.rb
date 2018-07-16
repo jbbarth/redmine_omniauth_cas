@@ -8,6 +8,7 @@ require 'omniauth/dynamic_full_host'
 ActionDispatch::Callbacks.to_prepare do
   require_dependency 'redmine_omniauth_cas/account_helper_patch'
   require_dependency 'redmine_omniauth_cas/account_controller_patch'
+  require_dependency 'redmine_omniauth_cas/user_patch'
 end
 
 # Plugin generic informations
