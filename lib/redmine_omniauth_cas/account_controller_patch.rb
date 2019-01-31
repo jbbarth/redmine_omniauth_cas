@@ -61,7 +61,7 @@ module Redmine::OmniAuthCAS
           end
         else
           user.update_attribute(:last_login_on, Time.now)
-          params[:back_url] = request.env["omniauth.origin"] unless request.env["omniauth.origin"].blank?
+          params[:back_url] = CGI.unescape(request.env["omniauth.origin"]) unless request.env["omniauth.origin"].blank?
           successful_authentication(user)
           #cannot be set earlier, because sucessful_authentication() triggers reset_session()
           session[:logged_in_with_cas] = true

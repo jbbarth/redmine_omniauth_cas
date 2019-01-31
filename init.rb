@@ -8,6 +8,7 @@ require 'omniauth/dynamic_full_host'
 ActiveSupport::Reloader.to_prepare do
   require_dependency 'redmine_omniauth_cas/account_helper_patch'
   require_dependency 'redmine_omniauth_cas/account_controller_patch'
+  require_dependency 'redmine_omniauth_cas/application_controller_patch'
   require_dependency 'redmine_omniauth_cas/user_patch'
 end
 
