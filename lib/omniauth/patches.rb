@@ -1,14 +1,5 @@
 require 'omniauth/cas'
 
-module PluginOmniauthCas
-  module CAS
-    def cas_host
-      @cas_host ||= super + @options.path.to_s
-    end
-  end
-end
-OmniAuth::Strategies::CAS.prepend PluginOmniauthCas::CAS
-
 module OmniAuth
   module Strategies
     class CAS
@@ -23,7 +14,7 @@ module OmniAuth
         validate_url = Addressable::URI.parse( @options.service_validate_url )
 
         if service_url.host.nil? || validate_url.host.nil?
-          cas_host + append_params(@options.service_validate_url, { :service => service_url.to_s, :ticket => ticket })
+          cas_url + append_params(@options.service_validate_url, { :service => service_url.to_s, :ticket => ticket })
         else
           append_params(@options.service_validate_url, { :service => service_url.to_s, :ticket => ticket })
         end
