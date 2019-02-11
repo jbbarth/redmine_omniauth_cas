@@ -8,7 +8,7 @@ module PluginOmniauthCas
       if url.nil? && referer = request.env['HTTP_REFERER']
         url = CGI.unescape(referer.to_s)
       else
-        url = CGI.unescape(url)
+        url = CGI.unescape(url) unless url.nil?
       end
       url
     end
