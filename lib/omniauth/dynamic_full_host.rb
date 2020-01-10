@@ -11,17 +11,7 @@ OmniAuth.config.full_host = Proc.new do |env|
     url = Setting["host_name"]
   #else, parse it and remove both request_uri and query_string
   else
-
-    # Ensure we only have ASCII charaters in url
-    encoding_options = {
-        :invalid           => :replace,  # Replace invalid byte sequences
-        :undef             => :replace,  # Replace anything not defined in ASCII
-        :replace           => '',        # Use a blank for those replacements
-        :universal_newline => true       # Always break lines with \n
-    }
-    url = url.encode(Encoding.find('ASCII'), encoding_options)
-
-    uri = URI.parse(url)
+    uri = URI.parse(URI.encode(url)) # Encode to ensure we only have ASCII charaters in url
     url = "#{uri.scheme}://#{uri.host}"
     url << ":#{uri.port}" unless uri.default_port == uri.port
   end
