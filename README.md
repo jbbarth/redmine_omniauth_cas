@@ -77,6 +77,19 @@ If you like this plugin, it's a good idea to contribute :
 * Feature: configure OmniAuth 'full_host' in case the application runs behing a reverse-proxy
 * Feature: basic CAS login
 
+## Test status
+
+|Plugin branch| Redmine Version   | Test Status       |
+|-------------|-------------------|-------------------|
+|master       | master            | [![Build1][1]][5] |  
+|master       | 4.1.0             | [![Build1][2]][5] |  
+|master       | 4.0.6             | [![Build2][3]][5] |
+
+[1]: https://travis-matrix-badges.herokuapp.com/repos/jbbarth/redmine_omniauth_cas/branches/master/1
+[2]: https://travis-matrix-badges.herokuapp.com/repos/jbbarth/redmine_omniauth_cas/branches/master/2
+[3]: https://travis-matrix-badges.herokuapp.com/repos/jbbarth/redmine_omniauth_cas/branches/master/3
+[5]: https://travis-ci.com/jbbarth/redmine_omniauth_cas
+
 ## License
 
 This project is released under the MIT license, see LICENSE file.
