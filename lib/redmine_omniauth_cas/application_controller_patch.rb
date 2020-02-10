@@ -20,7 +20,7 @@ module PluginOmniauthCas
           url = request.original_url
 
           ## START PATCH
-          url.gsub!('http:', Setting.protocol+":")
+          url.gsub!('http:', Setting.protocol + ":")
           ## END PATCH
 
         else
@@ -37,10 +37,15 @@ module PluginOmniauthCas
           format.any(:atom, :pdf, :csv) {
             redirect_to signin_path(:back_url => url)
           }
-          format.xml  { head :unauthorized, 'WWW-Authenticate' => 'Basic realm="Redmine API"' }
-          format.js   { head :unauthorized, 'WWW-Authenticate' => 'Basic realm="Redmine API"' }
-          format.json { head :unauthorized, 'WWW-Authenticate' => 'Basic realm="Redmine API"' }
-          format.any  { head :unauthorized }
+          format.api {
+            if Setting.rest_api_enabled? && accept_api_auth?
+              head(:unauthorized, 'WWW-Authenticate' => 'Basic realm="Redmine API"')
+            else
+              head(:forbidden)
+            end
+          }
+          format.js {head :unauthorized, 'WWW-Authenticate' => 'Basic realm="Redmine API"'}
+          format.any {head :unauthorized}
         end
         return false
       end
