@@ -88,7 +88,7 @@ If you like this plugin, it's a good idea to contribute :
 [1]: https://travis-matrix-badges.herokuapp.com/repos/jbbarth/redmine_omniauth_cas/branches/master/1
 [2]: https://travis-matrix-badges.herokuapp.com/repos/jbbarth/redmine_omniauth_cas/branches/master/2
 [3]: https://travis-matrix-badges.herokuapp.com/repos/jbbarth/redmine_omniauth_cas/branches/master/3
-[5]: https://travis-ci.com/jbbarth/redmine_omniauth_cas
+[5]: https://travis-ci.org/jbbarth/redmine_omniauth_cas
 
 ## License
 

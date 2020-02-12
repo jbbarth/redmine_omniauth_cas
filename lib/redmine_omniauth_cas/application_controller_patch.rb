@@ -38,7 +38,7 @@ module PluginOmniauthCas
             redirect_to signin_path(:back_url => url)
           }
           format.api {
-            if Setting.rest_api_enabled? && accept_api_auth?
+            if (Setting.rest_api_enabled? && accept_api_auth?) || Redmine::VERSION.to_s < '4.1'
               head(:unauthorized, 'WWW-Authenticate' => 'Basic realm="Redmine API"')
             else
               head(:forbidden)
