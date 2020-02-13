@@ -30,14 +30,16 @@ describe "AccountPatch", :type => :request do
         OmniAuth.config.mock_auth[:cas] = { 'uid' => 'admin' }
         get '/auth/cas/callback'
         expect(response).to redirect_to('/my/page')
-        expect(User.current.login).to eq "admin"
+        get '/my/page'
+        expect(response.body).to match /Logged in as.*admin/im
       end
 
       it "should authorize login if user exists with this email" do
         OmniAuth.config.mock_auth[:cas] = { 'uid' => 'admin@somenet.foo' }
         get '/auth/cas/callback'
         expect(response).to redirect_to('/my/page')
-        expect(User.current.login).to eq "admin"
+        get '/my/page'
+        expect(response.body).to match /Logged in as.*admin/im
       end
 
       it "should update last_login_on field" do
@@ -46,7 +48,8 @@ describe "AccountPatch", :type => :request do
         OmniAuth.config.mock_auth[:cas] = { 'uid' => 'admin' }
         get '/auth/cas/callback'
         expect(response).to redirect_to('/my/page')
-        assert Time.now - User.current.last_login_on < 30.seconds
+        user.reload
+        assert Time.now - user.last_login_on < 30.seconds
       end
 
       it "should refuse login if user doesn't exist" do
