@@ -82,8 +82,8 @@ If you like this plugin, it's a good idea to contribute :
 |Plugin branch| Redmine Version   | Test Status       |
 |-------------|-------------------|-------------------|
 |master       | master            | [![Build1][1]][5] |  
-|master       | 4.1.0             | [![Build1][2]][5] |  
-|master       | 4.0.6             | [![Build2][3]][5] |
+|master       | 4.1.1             | [![Build1][2]][5] |  
+|master       | 4.0.7             | [![Build2][3]][5] |
 
 [1]: https://travis-matrix-badges.herokuapp.com/repos/jbbarth/redmine_omniauth_cas/branches/master/1
 [2]: https://travis-matrix-badges.herokuapp.com/repos/jbbarth/redmine_omniauth_cas/branches/master/2
