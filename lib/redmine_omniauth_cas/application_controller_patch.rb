@@ -10,6 +10,11 @@ module PluginOmniauthCas
       else
         url = CGI.unescape(url) unless url.nil?
       end
+      # URLs that contains the utf8=[checkmark] parameter added by Rails are
+      # parsed as invalid by URI.parse so the redirect to the back URL would
+      # not be accepted (ApplicationController#validate_back_url would return
+      # false)
+      url.gsub!(/(\?|&)utf8=\u2713&?/, '\1') unless url.nil?
       url
     end
 
@@ -55,6 +60,8 @@ module PluginOmniauthCas
     # Returns a validated URL string if back_url is a valid url for redirection,
     # otherwise false
     def validate_back_url(back_url)
+      return false if back_url.blank?
+
       if CGI.unescape(back_url).include?('..')
         return false
       end
