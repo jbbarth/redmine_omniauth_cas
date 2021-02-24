@@ -5,8 +5,6 @@ module Redmine::OmniAuthCAS
     def self.included(base)
       base.send(:include, InstanceMethods)
       base.class_eval do
-        unloadable
-
         # alias_method_chain is deprecated in Rails 5: replaced with two alias_method
         # as a quick workaround. Using the 'prepend' method can generate an
         # 'stack level too deep' error in conjunction with other (non ported) plugins.

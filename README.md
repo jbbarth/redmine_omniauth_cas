@@ -79,16 +79,16 @@ If you like this plugin, it's a good idea to contribute :
 
 ## Test status
 
-|Plugin branch| Redmine Version   | Test Status       |
-|-------------|-------------------|-------------------|
-|master       | master            | [![Build1][1]][5] |  
-|master       | 4.1.1             | [![Build1][2]][5] |  
-|master       | 4.0.7             | [![Build2][3]][5] |
+|Plugin branch| Redmine Version   | Test Status      |
+|-------------|-------------------|------------------|
+|master       | 4.1.1             | [![4.1.1][1]][5] |  
+|master       | 4.0.7             | [![4.0.7][2]][5] |
+|master       | master            | [![master][3]][5]|
 
-[1]: https://travis-matrix-badges.herokuapp.com/repos/jbbarth/redmine_omniauth_cas/branches/master/1
-[2]: https://travis-matrix-badges.herokuapp.com/repos/jbbarth/redmine_omniauth_cas/branches/master/2
-[3]: https://travis-matrix-badges.herokuapp.com/repos/jbbarth/redmine_omniauth_cas/branches/master/3
-[5]: https://travis-ci.org/jbbarth/redmine_omniauth_cas
+[1]: https://github.com/jbbarth/redmine_omniauth_cas/actions/workflows/4_1_1.yml/badge.svg
+[2]: https://github.com/jbbarth/redmine_omniauth_cas/actions/workflows/4_0_7.yml/badge.svg
+[3]: https://github.com/jbbarth/redmine_omniauth_cas/actions/workflows/master.yml/badge.svg
+[5]: https://github.com/jbbarth/redmine_omniauth_cas/actions
 
 ## License
 
