@@ -1,8 +1,8 @@
-name: Tests 4.1.2
+name: Tests 4.2.1
 
 env:
   PLUGIN_NAME: redmine_omniauth_cas
-  REDMINE_VERSION: 4.1.2
+  REDMINE_VERSION: 4.2.1
   RAILS_ENV: test
 
 on:
