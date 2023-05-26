@@ -1,16 +1,10 @@
-require 'redmine'
-require 'redmine_omniauth_cas'
-require 'redmine_omniauth_cas/hooks'
-require 'omniauth/patches'
-require 'omniauth/dynamic_full_host'
+# frozen_string_literal: true
 
-# Patches to existing classes/modules
-ActiveSupport::Reloader.to_prepare do
-  require_dependency 'redmine_omniauth_cas/account_helper_patch'
-  require_dependency 'redmine_omniauth_cas/account_controller_patch'
-  require_dependency 'redmine_omniauth_cas/application_controller_patch'
-  require_dependency 'redmine_omniauth_cas/user_patch'
-end
+require 'redmine'
+require_relative 'lib/redmine_omniauth_cas'
+require_relative 'lib/redmine_omniauth_cas/hooks'
+require_relative 'lib/omniauth/patches'
+require_relative 'lib/omniauth/dynamic_full_host'
 
 # Plugin generic informations
 Redmine::Plugin.register :redmine_omniauth_cas do
@@ -28,15 +22,15 @@ end
 
 # OmniAuth CAS
 setup_app = Proc.new do |env|
-  addr = Redmine::OmniAuthCAS.cas_server
+  addr = RedmineOmniauthCas.cas_server
   cas_server = URI.parse(addr)
   if cas_server
     env['omniauth.strategy'].options.merge! :host => cas_server.host,
                                             :port => cas_server.port,
                                             :path => (cas_server.path != "/" ? cas_server.path : nil),
-                                            :ssl  => cas_server.scheme == "https"
+                                            :ssl => cas_server.scheme == "https"
   end
-  validate = Redmine::OmniAuthCAS.cas_service_validate_url
+  validate = RedmineOmniauthCas.cas_service_validate_url
   if validate
     env['omniauth.strategy'].options.merge! :service_validate_url => validate
   end
@@ -48,11 +42,19 @@ setup_app = Proc.new do |env|
   env['omniauth.strategy'].options.merge! :disable_ssl_verification => true
 end
 
-# tell Rails we use this middleware, with some default value just in case
-Rails.application.config.middleware.use OmniAuth::Builder do
-  #url = "http://nadine.application.ac.centre-serveur.i2/"
-  use OmniAuth::Strategies::CAS, :host => "localhost",
-                                 :port => "9292",
-                                 :ssl => false,
-                                 :setup => setup_app
+begin
+  # tell Rails we use this middleware, with some default value just in case
+  Rails.application.config.middleware.use OmniAuth::Builder do
+    # url = "http://nadine.application.ac.centre-serveur.i2/"
+    use OmniAuth::Strategies::CAS, :host => "localhost",
+        :port => "9292",
+        :ssl => false,
+        :setup => setup_app
+  end
+rescue FrozenError
+  # This can happen if there is a crash after Rails has
+  # started booting but before we've added our middleware.
+  # The middlewares array will only be frozen if an earlier error occurs
+  Rails.logger.warn("Unable to add OmniAuth::Builder middleware as the middleware stack is frozen")
+  puts "/!\\ Unable to add OmniAuth::Builder middleware as the middleware stack is frozen"
 end

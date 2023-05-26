@@ -1,7 +1,6 @@
 require "spec_helper"
 
 describe AccountHelper do
-  include Redmine::OmniAuthCAS::AccountHelperPatch
   include Redmine::I18n
 
   context "#label_for_cas_login" do

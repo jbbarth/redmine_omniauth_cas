@@ -1,6 +1,6 @@
 require_dependency 'account_controller'
 
-module Redmine::OmniAuthCAS
+module RedmineOmniauthCas
   module AccountControllerPatch
     def self.included(base)
       base.send(:include, InstanceMethods)
@@ -89,7 +89,7 @@ module Redmine::OmniAuthCAS
 
       private
       def cas_settings
-        Redmine::OmniAuthCAS.settings_hash
+        RedmineOmniauthCas.settings_hash
       end
 
       def cas_logout_url(service = nil)
@@ -104,6 +104,6 @@ module Redmine::OmniAuthCAS
   end
 end
 
-unless AccountController.included_modules.include? Redmine::OmniAuthCAS::AccountControllerPatch
-  AccountController.send(:include, Redmine::OmniAuthCAS::AccountControllerPatch)
+unless AccountController.included_modules.include? RedmineOmniauthCas::AccountControllerPatch
+  AccountController.send(:include, RedmineOmniauthCas::AccountControllerPatch)
 end

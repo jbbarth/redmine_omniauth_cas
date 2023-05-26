@@ -1,4 +1,4 @@
-module Redmine::OmniAuthCAS
+module RedmineOmniauthCas
   class << self
     def settings_hash
       Setting["plugin_redmine_omniauth_cas"]
