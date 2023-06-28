@@ -81,7 +81,7 @@ If you like this plugin, it's a good idea to contribute :
 
 |Plugin branch| Redmine Version | Test Status       |
 |-------------|-----------------|-------------------|
-|master       | 4.2.10          | [![4.2.10][1]][5] |  
+|master       | 4.2.10         | [![4.2.10][1]][5]|  
 |master       | 5.0.5           | [![5.0.5][2]][5]  |
 |master       | master          | [![master][4]][5] |
 
