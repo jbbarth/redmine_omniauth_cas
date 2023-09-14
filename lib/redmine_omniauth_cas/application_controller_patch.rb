@@ -3,19 +3,6 @@ require_dependency 'application_controller'
 module PluginOmniauthCas
   module ApplicationController
 
-    def back_url
-      url = params[:back_url]
-      if url.blank? && referer = request.env['HTTP_REFERER']
-        url = referer.to_s
-      end
-      # URLs that contains the utf8=[checkmark] parameter added by Rails are
-      # parsed as invalid by URI.parse so the redirect to the back URL would
-      # not be accepted (ApplicationController#validate_back_url would return
-      # false)
-      url.gsub!(/(\?|&)utf8=\u2713&?/, '\1') unless url.blank?
-      url
-    end
-
     def require_login
       if !User.current.logged?
         # Extract only the basic url parameters on non-GET requests
