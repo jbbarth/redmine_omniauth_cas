@@ -8,7 +8,6 @@ module RedmineOmniauthCas
       require_relative 'account_controller_patch'
       require_relative 'account_helper_patch'
       require_relative 'application_controller_patch'
-      require_relative 'user_patch'
     end
   end
 end

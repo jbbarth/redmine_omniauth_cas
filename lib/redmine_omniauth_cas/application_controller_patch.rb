@@ -1,7 +1,8 @@
 require_dependency 'application_controller'
 
-module PluginOmniauthCas
-  module ApplicationController
+module RedmineOmniauthCas
+  module ApplicationControllerPatch
+    extend ActiveSupport::Concern
 
     def require_login
       if !User.current.logged?
@@ -34,8 +35,8 @@ module PluginOmniauthCas
               head(:forbidden)
             end
           }
-          format.js {head :unauthorized, 'WWW-Authenticate' => 'Basic realm="Redmine API"'}
-          format.any {head :unauthorized}
+          format.js { head :unauthorized, 'WWW-Authenticate' => 'Basic realm="Redmine API"' }
+          format.any { head :unauthorized }
         end
         return false
       end
@@ -91,4 +92,4 @@ module PluginOmniauthCas
   end
 end
 
-ApplicationController.prepend PluginOmniauthCas::ApplicationController
+ApplicationController.prepend RedmineOmniauthCas::ApplicationControllerPatch

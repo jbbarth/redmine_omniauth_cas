@@ -10,7 +10,7 @@ describe "AccountPatch", :type => :request do
         { :controller => 'account', :action => 'login_with_cas_redirect', :provider => 'blah' }
       )
     end
-    #TODO: some real test?
+    # TODO: some real test?
   end
   context "GET /auth/:provider/callback" do
     it "should route things correctly" do
@@ -27,7 +27,8 @@ describe "AccountPatch", :type => :request do
       end
 
       it "should authorize login if user exists with this login" do
-        OmniAuth.config.mock_auth[:cas] = { 'uid' => 'admin' }
+        OmniAuth.config.mock_auth[:cas] = OmniAuth::AuthHash.new({ 'uid' => 'admin' })
+        Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:cas]
         get '/auth/cas/callback'
         expect(response).to redirect_to('/my/page')
         get '/my/page'
@@ -35,7 +36,8 @@ describe "AccountPatch", :type => :request do
       end
 
       it "should authorize login if user exists with this email" do
-        OmniAuth.config.mock_auth[:cas] = { 'uid' => 'admin@somenet.foo' }
+        OmniAuth.config.mock_auth[:cas] = OmniAuth::AuthHash.new({ 'uid' => 'admin@somenet.foo' })
+        Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:cas]
         get '/auth/cas/callback'
         expect(response).to redirect_to('/my/page')
         get '/my/page'
@@ -45,7 +47,8 @@ describe "AccountPatch", :type => :request do
       it "should update last_login_on field" do
         user = User.find(1)
         user.update_attribute(:last_login_on, Time.now - 6.hours)
-        OmniAuth.config.mock_auth[:cas] = { 'uid' => 'admin' }
+        OmniAuth.config.mock_auth[:cas] = OmniAuth::AuthHash.new({ 'uid' => 'admin' })
+        Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:cas]
         get '/auth/cas/callback'
         expect(response).to redirect_to('/my/page')
         user.reload
@@ -53,7 +56,8 @@ describe "AccountPatch", :type => :request do
       end
 
       it "should refuse login if user doesn't exist" do
-        OmniAuth.config.mock_auth[:cas] = { 'uid' => 'johndoe' }
+        OmniAuth.config.mock_auth[:cas] = OmniAuth::AuthHash.new({ 'uid' => 'johndoe' })
+        Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:cas]
         get '/auth/cas/callback'
         expect(response).to redirect_to('/login')
         follow_redirect!
