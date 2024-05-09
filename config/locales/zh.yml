@@ -1,0 +1,12 @@
+zh:
+  label_login_with_cas: CAS 登录
+  label_login_page_text: 登录页文本
+  label_cas_enabled: 开启 CAS 登录
+  label_cas_server: CAS 服务器地址
+  label_cas_service_validate_url: CAS 验证地址 (如果不同)
+  label_replace_redmine_login: 替换 Redmine 登录页
+  text_full_logout_proposal: 在尝试其他用户名之前，您可能需要 %{value}。
+  text_logout_from_cas: 从 CAS 登出
+  error_cas_no_ticket: 回调期间未找到 CAS ticket。请尝试再次进行身份验证
+  error_cas_invalid_ticket: 指定了无效的 CAS ticket，它可能已过期。请再次尝试身份验证。
+  error_cas_unknown: CAS 回调处理过程中发生未知错误。
