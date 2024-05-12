@@ -14,7 +14,7 @@ Then :
 * clone this repository in your plugins/ directory ; if you have a doubt you put it at the good level, you can go to your redmine root directoryand check you have a @plugins/redmine_omniauth_cas/init.rb@ file
 * install the dependencies with bundler : `bundle install`
 * copy assets by running this command from your redmine root directory (note: the plugin has no migration for now) : `RAILS_ENV=production rake redmine:plugins`
-* copy `contrib/cas.rb` to `${REDMIN}/config/initializers/cas.rb`
+* copy `contrib/redmine_omniauth_cas.rb` to `${REDMIN}/config/initializers/redmine_omniauth_cas.rb`
 * restart your Redmine instance (depends on how you host it)
 
 Finally you can configure your CAS server URL directly in your redmine instance, in "Administration" > "Plugins" > "Configure" on the OmniAuth CAS plugin line.
