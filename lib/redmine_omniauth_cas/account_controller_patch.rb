@@ -36,7 +36,7 @@ module RedmineOmniauthCas
         auth = request.env["omniauth.auth"]
 
         #add a hook where you could define auto-creation of users for instance
-        call_hook(:controller_account_before_cas_login, { :params => params, :auth => auth })
+        call_hook(:controller_account_before_cas_login, { :params => params, :auth => auth, :cookies => cookies })
 
         #user = User.find_by_provider_and_uid(auth["provider"], auth["uid"])
         user = User.find_by_login(auth["uid"]) || User.find_by_mail(auth["uid"])
