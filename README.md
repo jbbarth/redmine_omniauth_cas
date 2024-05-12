@@ -58,6 +58,7 @@ If you like this plugin, it's a good idea to contribute :
 * Fix: repare different url for validation
 * Feature: upgrade to OmniAuth 1.x and Redmine 2.x
 * Feature: clean log out from CAS for users logged in through CAS
+* Feature: supported Redmine 5.x
 
 ### v0.1.2
 
