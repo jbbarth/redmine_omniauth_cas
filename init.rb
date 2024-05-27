@@ -1,5 +1,14 @@
 # frozen_string_literal: true
 
+initializers_dir = File.join(Rails.root, "config", "initializers")
+if Dir.glob(File.join(initializers_dir, "redmine_omniauth_cas.rb")).blank?
+  $stderr.puts "Omniauth CAS Plugin: Missing initialization file config/initializers/redmine_omniauth_cas.rb. " \
+                 "Please copy the provided file to the config/initializers/ directory.\n" \
+                 "You can copy/paste this command:\n" \
+                 "cp #{File.join(Rails.root, "plugins", "redmine_omniauth_cas")}/initializers/redmine_omniauth_cas.rb #{File.join(initializers_dir, "redmine_omniauth_cas.rb")}"
+  exit 1
+end
+
 require 'redmine'
 require_relative 'lib/redmine_omniauth_cas'
 require_relative 'lib/redmine_omniauth_cas/hooks'
