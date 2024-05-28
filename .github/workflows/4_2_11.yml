@@ -137,6 +137,7 @@ jobs:
           RAILS_ENV: test
         working-directory: redmine
         run: |
+          cp plugins/redmine_omniauth_cas/initializers/redmine_omniauth_cas.rb config/initializers/redmine_omniauth_cas.rb
           bundle install --jobs=4 --retry=3 --without development
           bundle exec rake redmine:plugins:migrate
           # cp -i plugins/*/spec/fixtures/*yml test/fixtures/
