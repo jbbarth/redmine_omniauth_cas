@@ -53,32 +53,27 @@ module RedmineOmniauthCas
       end
 
       begin
-        uri = URI.parse(back_url)
-      rescue URI::InvalidURIError
+        uri = Addressable::URI.parse(back_url)
+        ## PATCHED : ignore scheme HTTPS/HTTP and port so redirection works behind reverse proxies
+        [:host].each do |component|
+          if uri.send(component).present? && uri.send(component) != request.send(component)
+            return false
+          end
+        end
+        # Remove unnecessary components to convert the URL into a relative URL
+        uri.omit!(:scheme, :authority)
+      rescue Addressable::URI::InvalidURIError
         return false
       end
-
-      ## PATCHED : ignore scheme HTTPS/HTTP and port so redirection works behind reverse proxies
-      [:host].each do |component|
-        if uri.send(component).present? && uri.send(component) != request.send(component)
-          return false
-        end
-      end
-      uri.scheme = nil
-      uri.host = nil
-      uri.port = nil
-
-      # Always ignore basic user:password in the URL
-      uri.userinfo = nil
 
       path = uri.to_s
       # Ensure that the remaining URL starts with a slash, followed by a
       # non-slash character or the end
-      if path !~ %r{\A/([^/]|\z)}
+      unless %r{\A/([^/]|\z)}.match?(path)
         return false
       end
 
-      if path.match(%r{/(login|account/register|account/lost_password)})
+      if %r{/(login|account/register|account/lost_password)}.match?(path)
         return false
       end
 
