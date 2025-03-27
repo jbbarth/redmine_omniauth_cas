@@ -1,8 +1,8 @@
-name: Tests master
+name: Tests 5.1.7
 
 env:
   PLUGIN_NAME: redmine_omniauth_cas
-  REDMINE_VERSION: master
+  REDMINE_VERSION: 5.1.7
   RAILS_ENV: test
 
 on:
@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        ruby: ['3.3']
+        ruby: ['3.2']
         db: ['postgres']
       fail-fast: false
 

@@ -1,2 +1,2 @@
-gem 'omniauth', '~> 1.9'
-gem 'omniauth-cas', '= 1.1.1'
+gem 'omniauth', '~> 2.1'
+gem 'omniauth-cas', '~> 3.0'
