@@ -29,7 +29,7 @@ module RedmineOmniauthCas
       end
 
       def login_with_cas_redirect
-        render :text => "Not Found", :status => 404
+        render plain: "Not Found", status: 404
       end
 
       def login_with_cas_callback
