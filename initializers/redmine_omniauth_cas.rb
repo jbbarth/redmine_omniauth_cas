@@ -24,11 +24,10 @@ end
 begin
   # tell Rails we use this middleware, with some default value just in case
   Rails.application.config.middleware.use OmniAuth::Builder do
-    # url = "http://nadine.application.ac.centre-serveur.i2/"
-    use OmniAuth::Strategies::CAS, :host => "localhost",
-        :port => "9292",
-        :ssl => false,
-        :setup => setup_app
+    provider :cas, :host => "localhost",
+             :port => "9292",
+             :ssl => false,
+             :setup => setup_app
   end
 rescue FrozenError
   # This can happen if there is a crash after Rails has
