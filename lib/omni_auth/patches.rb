@@ -1,6 +1,6 @@
 require 'omniauth/cas'
 
-module Omniauth::Patches
+module OmniAuth::Patches
   # patch to disable return_url to avoid polluting the service URL
   def return_url
     {}
@@ -10,7 +10,7 @@ end
 module OmniAuth
   module Strategies
     class CAS
-      prepend Omniauth::Patches
+      prepend OmniAuth::Patches
 
       # patch to accept path (subdir) in cas_host
       option :path, nil

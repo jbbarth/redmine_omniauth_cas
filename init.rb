@@ -12,8 +12,8 @@ end
 require 'redmine'
 require_relative 'lib/redmine_omniauth_cas'
 require_relative 'lib/redmine_omniauth_cas/hooks'
-require_relative 'lib/omniauth/patches'
-require_relative 'lib/omniauth/dynamic_full_host'
+require_relative 'lib/omni_auth/patches'
+require_relative 'lib/omni_auth/dynamic_full_host'
 
 # Plugin generic informations
 Redmine::Plugin.register :redmine_omniauth_cas do

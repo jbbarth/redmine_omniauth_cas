@@ -107,3 +107,7 @@ end
 unless AccountController.included_modules.include? RedmineOmniauthCas::AccountControllerPatch
   AccountController.send(:include, RedmineOmniauthCas::AccountControllerPatch)
 end
+
+class AccountController
+  skip_before_action :verify_authenticity_token, only: [:login_with_cas_callback]
+end

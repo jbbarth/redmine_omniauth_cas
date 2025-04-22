@@ -1,5 +1,5 @@
 # configures public url for our application
-module Omniauth::DynamicFullHost
+module OmniAuth::DynamicFullHost
   def self.full_host_url(url = nil)
     # unescapes url on-the-fly because it might be double-escaped in some environments
     #(it happens for me at work with 2 reverse-proxies in front of the app...)
@@ -19,5 +19,5 @@ module Omniauth::DynamicFullHost
 end
 
 OmniAuth.config.full_host = Proc.new do |env|
-  Omniauth::DynamicFullHost.full_host_url(env["rack.session"]["omniauth.origin"] || env["omniauth.origin"])
+  OmniAuth::DynamicFullHost.full_host_url(env["rack.session"]["omniauth.origin"] || env["omniauth.origin"])
 end

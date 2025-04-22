@@ -17,12 +17,12 @@ describe "RedmineOmniAuthCAS" do
   context "dynamic full host" do
     it "should return host name from setting if no url" do
       Setting["host_name"] = "http://redmine.example.com"
-      expect(Omniauth::DynamicFullHost.full_host_url).to eq "http://redmine.example.com"
+      expect(OmniAuth::DynamicFullHost.full_host_url).to eq "http://redmine.example.com"
     end
 
     it "should return host name from url if url is present" do
       url = "https://redmine.example.com:3000/some/path"
-      expect(Omniauth::DynamicFullHost.full_host_url(url)).to eq "https://redmine.example.com:3000"
+      expect(OmniAuth::DynamicFullHost.full_host_url(url)).to eq "https://redmine.example.com:3000"
     end
   end
 end
