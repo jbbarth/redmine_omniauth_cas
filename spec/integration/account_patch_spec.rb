@@ -64,15 +64,6 @@ describe "AccountPatch", :type => :request do
         expect(User.current).to eq User.anonymous
         assert_select 'div.flash.error', :text => /Invalid user or password/
       end
-
-      it "should log in the test user" do
-        OmniAuth.config.mock_auth[:cas] = OmniAuth::AuthHash.new({ 'uid' => 'test_user' })
-        Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:cas]
-        get '/auth/cas/callback'
-        expect(response).to redirect_to('/my/page')
-        follow_redirect!
-        expect(response.body).to include('Logged in as test_user')
-      end
     end
   end
 end

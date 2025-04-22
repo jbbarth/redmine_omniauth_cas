@@ -1,9 +1,32 @@
-#cas-login { margin:3em auto 0; font-size:16px; font-weight:bold; text-align:center; }
-#cas-login a, #cas-login a:hover {
-  display:inline-block; padding:0.4em 1em; max-width:800px; text-align:center;
-  color:#fff; background-color:#229e43; text-decoration:none !important; text-shadow:1px 1px 1px #666;
-  -moz-border-radius:20px; -webkit-border-radius:20px; border-radius:20px;
+#cas-login {
+    margin: 3em auto 0;
+    text-align: center;
 }
-#cas-login a:hover { background-color:#20ad46; }
-#cas-login a:active { position:relative; top:1px; }
-#login-form table { margin-top:2em; }
+
+#cas-login input[type="submit"], #cas-login input[type="submit"]:hover {
+    padding: 0.4em 1em;
+    max-width: 800px;
+    text-align: center;
+    color: #fff;
+    background-color: #229e43;
+    text-decoration: none !important;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#cas-login input[type="submit"]:hover {
+    background-color: #20ad46;
+}
+
+#cas-login input[type="submit"]:active {
+    position: relative;
+    top: 1px;
+}
+
+#login-form table {
+    margin-top: 2em;
+}

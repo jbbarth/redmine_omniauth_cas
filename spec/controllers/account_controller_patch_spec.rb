@@ -20,7 +20,7 @@ describe AccountController, type: :controller do
       #this directly in the plugin 
       Setting["plugin_redmine_omniauth_cas"]["cas_server"] = "blah"
       get :login, params: {:back_url => "https%3A%2F%2Fblah%2F"}
-      assert_select '#cas-login > a[href=?]', '/auth/cas?origin=https%3A%2F%2Fblah%2F'
+      assert_select '#cas-login > form[action=?]', '/auth/cas?origin=https%3A%2F%2Fblah%2F'
     end
   end
 
