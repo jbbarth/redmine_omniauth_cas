@@ -3,17 +3,21 @@
     text-align: center;
 }
 
-#cas-login input[type="submit"], #cas-login input[type="submit"]:hover {
-    padding: 0.4em 1em;
+#cas-login form {
+    display: inline-block;
     max-width: 800px;
-    text-align: center;
-    color: #fff;
-    background-color: #229e43;
-    text-decoration: none !important;
+}
+
+#cas-login input[type="submit"] {
+    padding-left: 1em;
+    padding-right: 1em;
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
     border-radius: 20px;
     border: none;
+    color: #fff;
+    background-color: #229e43;
+    height: 32px;
     font-size: 16px;
     font-weight: bold;
 }
