@@ -22,14 +22,22 @@ module RedmineOmniauthCas
       def login_with_cas
         #TODO: test 'replace_redmine_login' feature
         if cas_settings["enabled"] && cas_settings["replace_redmine_login"]
-          redirect_to :controller => "account", :action => "login_with_cas_redirect", :provider => "cas", :origin => back_url
+          # We use the omniauth-rails_csrf_protection gem, so we must use POST requests.
+          # We cannot use a classic redirect_to which generates a GET request.
+          render :inline => %Q{
+            <form method="POST" action="/auth/cas">
+              <input type="hidden" name="authenticity_token" value="#{form_authenticity_token}">
+              <input type="hidden" name="origin" value="#{back_url}">
+              <script>document.forms[0].submit();</script>
+            </form>
+          }
         else
           login_without_cas
         end
       end
 
       def login_with_cas_redirect
-        render plain: "Not Found", status: 404
+        render_error :message => "Not Found", :status => 404
       end
 
       def login_with_cas_callback

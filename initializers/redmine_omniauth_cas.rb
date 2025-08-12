@@ -10,7 +10,7 @@ setup_app = Proc.new do |env|
                                             :ssl => cas_server.scheme == "https"
   end
   validate = RedmineOmniauthCas.cas_service_validate_url
-  if validate
+  if validate.present?
     env['omniauth.strategy'].options.merge! :service_validate_url => validate
   end
   # Dirty, not happy with it, but as long as I can't reproduce the bug
