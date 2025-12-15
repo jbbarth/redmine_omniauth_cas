@@ -1,0 +1,2 @@
+cas_server: https://cas.example.com
+cas_service_validate_url: https://cas.example.net/serviceValidate

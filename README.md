@@ -19,6 +19,41 @@ Then :
 
 Finally, you can configure your CAS server URL directly in your redmine instance, in "Administration" > "Plugins" > "Configure" on the OmniAuth CAS plugin line.
 
+## YAML file configuration (optional)
+
+Optionally, you can configure CAS server settings via a YAML file instead of the database.
+This is useful for deployment automation, managing sensitive configuration across environments and avoiding an edition through the web interface.
+
+### Setup
+
+1. Create the file `config/omniauth_cas.yml` in your Redmine root directory:
+
+```yaml
+cas_server: https://cas.example.com
+cas_service_validate_url: https://cas.example.net/serviceValidate
+```
+
+Example available in `config/omniauth_cas.yml.example`
+
+2. Replace URLs by your own
+
+3. Restart Redmine
+
+### Behavior
+
+- When the YAML file exists, `cas_server` and `cas_service_validate_url` are read from the file
+- These fields become read-only in the plugin settings page
+- If the YAML file is removed, the plugin reverts to database settings
+
+### Benefits
+
+- **Deployment automation**: Easier to manage across environments
+- **Security**: Sensitive URLs cannot be edited through the web interface
+
+### Backward Compatibility
+
+This feature is entirely optional. Existing installations continue to work without any changes.
+
 ## Coming soon features
 
 Here are some ideas that could be implemented in future releases. I'm really open to suggestions on this plugin, so don't hesitate to fill an issue directly on GitHub :
