@@ -101,10 +101,12 @@ module RedmineOmniauthCas
       end
 
       def cas_logout_url(service = nil)
-        logout_uri = URI.parse(cas_settings["cas_server"] + "/").merge("./logout")
-        if !service.blank?
-          logout_uri.query = "gateway=1&service=#{service}"
+        cas_server = RedmineOmniauthCas.cas_server.to_s.chomp("/")
+        logout_uri = URI.parse("#{cas_server}/logout")
+        unless logout_uri.absolute?
+          raise URI::BadURIError, "CAS server URL must be absolute (got: #{cas_server.inspect})"
         end
+        logout_uri.query = "gateway=1&service=#{service}" unless service.blank?
         logout_uri.to_s
       end
 
