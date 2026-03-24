@@ -1,5 +1,7 @@
 # Redmine OmniAuth CAS plugin
 
+[![Hypercommit](https://img.shields.io/badge/Hypercommit-DB2475)](https://hypercommit.com/redmine-omniauth-cas)
+
 This plugin adds CAS authentication support for [Redmine](http://www.redmine.org) thanks to the [OmniAuth authentication framework](https://github.com/intridea/omniauth). OmniAuth is a Rack middleware that let you authenticate against many sources (see [the list of supported sources](https://github.com/intridea/omniauth/blob/master/README.md)). This plugin aims at being an example of integration for the CAS protocol, but it shouldn't be that difficult to build a plugin that allows authentication against other sources.
 
 *NB*: the plugin doesn't support on-the-fly registration for now.
