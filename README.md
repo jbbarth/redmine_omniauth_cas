@@ -6,7 +6,7 @@ This plugin adds CAS authentication support for [Redmine](http://www.redmine.org
 
 ## Dependencies
 
-This plugin requires [redmine_base_deface](https://github.com/nanego/redmine_base_deface) to be installed (used to inject the CAS login button into Redmine views).
+This plugin requires [redmine_base_deface](https://github.com/jbbarth/redmine_base_deface) to be installed (used to inject the CAS login button into Redmine views).
 
 ## Install
 
