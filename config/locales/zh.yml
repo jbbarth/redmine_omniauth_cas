@@ -5,6 +5,7 @@ zh:
   label_cas_server: CAS 服务器地址
   label_cas_service_validate_url: CAS 验证地址 (如果不同)
   label_replace_redmine_login: 替换 Redmine 登录页
+  text_authenticate_by_login_password: 使用 登录名/密码 进行身份验证
   text_full_logout_proposal: 在尝试其他用户名之前，您可能需要 %{value}。
   text_logout_from_cas: 从 CAS 登出
   notice_cas_yaml_config_active: CAS 服务器设置已通过 YAML 文件配置：
