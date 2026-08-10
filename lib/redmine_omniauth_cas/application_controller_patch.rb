@@ -4,45 +4,6 @@ module RedmineOmniauthCas
   module ApplicationControllerPatch
     extend ActiveSupport::Concern
 
-    def require_login
-      if !User.current.logged?
-        # Extract only the basic url parameters on non-GET requests
-        if request.get?
-          url = request.original_url
-
-          ## START PATCH
-          url.gsub!('http:', Setting.protocol + ":")
-          ## END PATCH
-
-        else
-          url = url_for(:controller => params[:controller], :action => params[:action], :id => params[:id], :project_id => params[:project_id])
-        end
-        respond_to do |format|
-          format.html {
-            if request.xhr?
-              head :unauthorized
-            else
-              redirect_to signin_path(:back_url => url)
-            end
-          }
-          format.any(:atom, :pdf, :csv) {
-            redirect_to signin_path(:back_url => url)
-          }
-          format.api {
-            if (Setting.rest_api_enabled? && accept_api_auth?) || Redmine::VERSION.to_s < '4.1'
-              head(:unauthorized, 'WWW-Authenticate' => 'Basic realm="Redmine API"')
-            else
-              head(:forbidden)
-            end
-          }
-          format.js { head :unauthorized, 'WWW-Authenticate' => 'Basic realm="Redmine API"' }
-          format.any { head :unauthorized }
-        end
-        return false
-      end
-      true
-    end
-
     # Returns a validated URL string if back_url is a valid url for redirection,
     # otherwise false
     def validate_back_url(back_url)

@@ -22,7 +22,7 @@ Redmine::Plugin.register :redmine_omniauth_cas do
   author 'Jean-Baptiste BARTH'
   author_url 'mailto:jeanbaptiste.barth@gmail.com'
   url 'https://github.com/jbbarth/redmine_omniauth_cas'
-  version '6.1.0'
+  version '7.0.0'
   requires_redmine :version_or_higher => '4.0.0'
   requires_redmine_plugin :redmine_base_deface, :version_or_higher => '0.0.1'
   requires_redmine_plugin :redmine_base_rspec, :version_or_higher => '0.0.3' if Rails.env.test?

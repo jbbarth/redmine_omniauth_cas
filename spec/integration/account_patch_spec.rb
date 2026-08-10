@@ -64,6 +64,28 @@ describe "AccountPatch", :type => :request do
         expect(User.current).to eq User.anonymous
         assert_select 'div.flash.error', :text => /Invalid user or password/
       end
+
+      it "refuses login for a locked account" do
+        OmniAuth.config.mock_auth[:cas] = OmniAuth::AuthHash.new({ 'uid' => 'dlopper2' })
+        Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:cas]
+        get '/auth/cas/callback'
+        expect(response).to redirect_to('/login')
+        expect(session[:user_id]).to be_nil
+        follow_redirect!
+        expect(User.current).to eq User.anonymous
+        assert_select 'div.flash.error', :text => /Invalid user or password/
+      end
+
+      it "refuses login for an account still awaiting activation" do
+        User.find(2).update_columns(:status => User::STATUS_REGISTERED)
+        OmniAuth.config.mock_auth[:cas] = OmniAuth::AuthHash.new({ 'uid' => 'jsmith' })
+        Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:cas]
+        get '/auth/cas/callback'
+        expect(response).to redirect_to('/login')
+        expect(session[:user_id]).to be_nil
+        follow_redirect!
+        expect(User.current).to eq User.anonymous
+      end
     end
   end
 end

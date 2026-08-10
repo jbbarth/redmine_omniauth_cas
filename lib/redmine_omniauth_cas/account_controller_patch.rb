@@ -51,8 +51,13 @@ module RedmineOmniauthCas
 
         # taken from original AccountController
         # maybe it should be splitted in core
-        if user.blank?
-          logger.warn "Failed login for '#{auth[:uid]}' from #{request.remote_ip} at #{Time.now.utc}"
+        if user.blank? || !user.active?
+          if user.blank?
+            logger.warn "Failed login for '#{auth[:uid]}' from #{request.remote_ip} at #{Time.now.utc}"
+          else
+            logger.warn "Blocked login for non-active account '#{user.login}' (status=#{user.status}) " \
+                        "from #{request.remote_ip} at #{Time.now.utc}"
+          end
           error = l(:notice_account_invalid_credentials).sub(/\.$/, '')
           if cas_settings["cas_server"].present?
             link = self.class.helpers.link_to(l(:text_logout_from_cas), cas_logout_url, :target => "_blank")
