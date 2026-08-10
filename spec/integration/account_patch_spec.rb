@@ -32,7 +32,12 @@ describe "AccountPatch", :type => :request do
         get '/auth/cas/callback'
         expect(response).to redirect_to('/my/page')
         get '/my/page'
-        expect(response.body).to match /Logged in as.*admin/im
+        # Redmine 7.0 replaced the "Logged in as" header with a user menu showing "@login"
+        if Redmine::VERSION::MAJOR >= 7
+          expect(response.body).to match /@admin/
+        else
+          expect(response.body).to match /Logged in as.*admin/im
+        end
       end
 
       it "should authorize login if user exists with this email" do
@@ -41,7 +46,11 @@ describe "AccountPatch", :type => :request do
         get '/auth/cas/callback'
         expect(response).to redirect_to('/my/page')
         get '/my/page'
-        expect(response.body).to match /Logged in as.*admin/im
+        if Redmine::VERSION::MAJOR >= 7
+          expect(response.body).to match /@admin/
+        else
+          expect(response.body).to match /Logged in as.*admin/im
+        end
       end
 
       it "should update last_login_on field" do
