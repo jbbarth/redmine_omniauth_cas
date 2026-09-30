@@ -1,8 +1,8 @@
-name: Tests master
+name: Tests 6.1.4
 
 env:
   PLUGIN_NAME: redmine_omniauth_cas
-  REDMINE_VERSION: master
+  REDMINE_VERSION: 6.1.4
   RAILS_ENV: test
 
 on:
@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        ruby: [ '4.0' ]
+        ruby: ['3.4']
         db: ['postgres']
       fail-fast: false
 
@@ -48,7 +48,6 @@ jobs:
           sudo apt-get update && sudo apt-get install --yes --quiet
           build-essential
           libpq-dev
-          subversion
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1

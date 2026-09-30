@@ -1,4 +1,4 @@
-require_dependency 'account_helper'
+# frozen_string_literal: true
 
 module RedmineOmniauthCas::AccountHelperPatch
   def label_for_cas_login
@@ -7,4 +7,3 @@ module RedmineOmniauthCas::AccountHelperPatch
 end
 
 AccountHelper.prepend RedmineOmniauthCas::AccountHelperPatch
-ActionView::Base.prepend AccountHelper

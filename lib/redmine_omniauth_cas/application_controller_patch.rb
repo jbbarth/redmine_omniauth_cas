@@ -1,4 +1,4 @@
-require_dependency 'application_controller'
+# frozen_string_literal: true
 
 module RedmineOmniauthCas
   module ApplicationControllerPatch

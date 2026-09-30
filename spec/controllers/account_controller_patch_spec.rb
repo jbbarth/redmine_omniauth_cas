@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 describe AccountController, type: :controller do
@@ -21,6 +23,32 @@ describe AccountController, type: :controller do
       Setting["plugin_redmine_omniauth_cas"]["cas_server"] = "blah"
       get :login, params: {:back_url => "https%3A%2F%2Fblah%2F"}
       assert_select '#cas-login > form[action=?]', '/auth/cas?origin=https%3A%2F%2Fblah%2F'
+    end
+  end
+
+  context "GET /login when CAS replaces the Redmine login" do
+    before do
+      @previous_settings = Setting["plugin_redmine_omniauth_cas"]
+      Setting["plugin_redmine_omniauth_cas"] = @previous_settings.merge("enabled" => "true", "replace_redmine_login" => "true")
+    end
+
+    after do
+      Setting["plugin_redmine_omniauth_cas"] = @previous_settings
+    end
+
+    it "posts to the CAS provider with the back url as origin" do
+      allow(controller).to receive(:protect_against_forgery?).and_return(true)
+      get :login, params: {:back_url => "/projects"}
+      assert_select 'form[method=post][action=?]', '/auth/cas' do
+        assert_select 'input[name=authenticity_token]'
+        assert_select 'input[name=origin][value=?]', '/projects'
+      end
+    end
+
+    it "escapes the back url" do
+      get :login, params: {:back_url => '"><script>alert(1)</script>'}
+      expect(response.body).not_to include('"><script>alert(1)</script>')
+      assert_select 'input[name=origin][value=?]', '"><script>alert(1)</script>'
     end
   end
 

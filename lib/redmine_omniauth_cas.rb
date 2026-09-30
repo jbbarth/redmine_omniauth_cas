@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RedmineOmniauthCas
   class << self
     def settings_hash

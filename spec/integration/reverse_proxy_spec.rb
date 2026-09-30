@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 # In production the reverse proxy forwards requests in plain http, as the test

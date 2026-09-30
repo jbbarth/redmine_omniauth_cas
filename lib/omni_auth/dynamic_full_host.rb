@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # configures public url for our application
 module OmniAuth::DynamicFullHost
   def self.full_host_url(url = nil)

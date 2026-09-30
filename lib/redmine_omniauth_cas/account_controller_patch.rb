@@ -1,4 +1,4 @@
-require_dependency 'account_controller'
+# frozen_string_literal: true
 
 module RedmineOmniauthCas
   module AccountControllerPatch
@@ -24,13 +24,12 @@ module RedmineOmniauthCas
         if cas_settings["enabled"] && cas_settings["replace_redmine_login"]
           # We use the omniauth-rails_csrf_protection gem, so we must use POST requests.
           # We cannot use a classic redirect_to which generates a GET request.
-          render :inline => %Q{
-            <form method="POST" action="/auth/cas">
-              <input type="hidden" name="authenticity_token" value="#{form_authenticity_token}">
-              <input type="hidden" name="origin" value="#{back_url}">
-              <script>document.forms[0].submit();</script>
-            </form>
-          }
+          render :inline => <<~ERB
+            <%= form_tag({:controller => 'account', :action => 'login_with_cas_redirect', :provider => 'cas'}) do %>
+              <%= hidden_field_tag 'origin', back_url %>
+            <% end %>
+            <%= javascript_tag 'document.forms[0].submit();' %>
+          ERB
         else
           login_without_cas
         end
@@ -71,7 +70,7 @@ module RedmineOmniauthCas
             redirect_to signin_url
           end
         else
-          user.update_attribute(:last_login_on, Time.now)
+          user.update_last_login_on!
           params[:back_url] = request.env["omniauth.origin"] unless request.env["omniauth.origin"].blank?
           successful_authentication(user)
           #cannot be set earlier, because sucessful_authentication() triggers reset_session()

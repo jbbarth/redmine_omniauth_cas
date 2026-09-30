@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # OmniAuth CAS
 setup_app = Proc.new do |env|

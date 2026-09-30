@@ -1,8 +1,8 @@
-name: Tests master
+name: Tests 7.0.1
 
 env:
   PLUGIN_NAME: redmine_omniauth_cas
-  REDMINE_VERSION: master
+  REDMINE_VERSION: 7.0.1
   RAILS_ENV: test
 
 on:
@@ -48,7 +48,6 @@ jobs:
           sudo apt-get update && sudo apt-get install --yes --quiet
           build-essential
           libpq-dev
-          subversion
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1

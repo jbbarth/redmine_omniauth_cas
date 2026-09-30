@@ -92,6 +92,7 @@ If you like this plugin, it's a good idea to contribute :
 ### master/current
 
 * Feature: supported Redmine 7.x
+* Fix: escape the back url in the form that redirects to CAS when it replaces the Redmine login, and honour the Redmine sub-uri
 * Fix: refuse CAS login for locked accounts and accounts awaiting activation
 * Fix: no longer override `require_login`, so API authentication follows the behaviour of the Redmine version in use; the https rewrite needed behind a reverse proxy now applies to the request url only, no longer to urls carried in its query string
 * Fix: avoid potential errors when the "service_validate" option is not set in plugin configuration, leading to 500 error after CAS redirect
@@ -125,12 +126,12 @@ If you like this plugin, it's a good idea to contribute :
 
 |Plugin branch| Redmine Version | Test Status       |
 |-------------|-----------------|-------------------|
-|master       | 6.1.3           | [![6.1.3][1]][5]  |
-|master       | 7.0.0           | [![7.0.0][2]][5]  |
+|master       | 6.1.4           | [![6.1.4][1]][5]  |
+|master       | 7.0.1           | [![7.0.1][2]][5]  |
 |master       | master          | [![master][3]][5] |
 
-[1]: https://github.com/jbbarth/redmine_omniauth_cas/actions/workflows/6_1_3.yml/badge.svg
-[2]: https://github.com/jbbarth/redmine_omniauth_cas/actions/workflows/7_0_0.yml/badge.svg
+[1]: https://github.com/jbbarth/redmine_omniauth_cas/actions/workflows/6_1_4.yml/badge.svg
+[2]: https://github.com/jbbarth/redmine_omniauth_cas/actions/workflows/7_0_1.yml/badge.svg
 [3]: https://github.com/jbbarth/redmine_omniauth_cas/actions/workflows/master.yml/badge.svg
 [5]: https://github.com/jbbarth/redmine_omniauth_cas/actions
 
